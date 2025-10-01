@@ -6,9 +6,6 @@ public class Calculadora {
         Locale.setDefault(Locale.US);
         Scanner scanner = new Scanner(System.in);
 
-        boolean continuar = true;
-
-        while (continuar) {
             System.out.print("Digite seu peso em kg (ex: 70.5): ");
             double peso = scanner.nextDouble();
 
@@ -18,22 +15,19 @@ public class Calculadora {
             System.out.print("Digite seu sexo (M para masculino, F para feminino): ");
             char entradaSexo = scanner.next().toUpperCase().charAt(0);
 
-            boolean sexoMasculino;
-            if (entradaSexo == 'M') {
-                sexoMasculino = true;
-            } else if (entradaSexo == 'F') {
-                sexoMasculino = false;
-            } else {
+            if (entradaSexo != 'M' && entradaSexo != 'F') {
                 System.out.println("Sexo inválido. Por favor, use M ou F.");
-                continue;
+                return;
             }
+
+            boolean sexo = (entradaSexo == 'F');
 
             double imc = peso / (altura * altura);
             System.out.println("------------------------------------");
             System.out.printf("Seu IMC é: %.2f%n", imc);
 
             String condicao;
-            if (!sexoMasculino) {
+            if (sexo) {
                 if (imc < 19.1) {
                     condicao = "Abaixo do peso";
                 } else if (imc < 25.8) {
@@ -61,15 +55,6 @@ public class Calculadora {
 
             System.out.println("Condição: " + condicao);
             System.out.println("------------------------------------");
-
-            System.out.print("Deseja calcular outro IMC? (S/N): ");
-            char opcao = scanner.next().toUpperCase().charAt(0);
-
-            if (opcao == 'N') {
-                continuar = false;
-                System.out.println("Programa finalizado!");
-            }
-        }
 
         scanner.close();
     }
